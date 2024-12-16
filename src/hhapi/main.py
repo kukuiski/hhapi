@@ -25,8 +25,8 @@ def main():
 
         if choice == "1":
             keyword = input("Введите поисковый запрос: ")
-            pages_count = input(
-                "Введите количество страниц для поиска (по-умолчанию 1): "
+            pages_count = int(input(
+                "Введите количество страниц для поиска (по-умолчанию 1): ").strip()
             )
             if not pages_count:
                 pages_count = 1
