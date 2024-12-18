@@ -19,17 +19,17 @@ def main():
         print("1. Ввести поисковый запрос для запроса вакансий из hh.ru")
         print("2. Получить топ N вакансий по зарплате")
         print("3. Получить вакансии с ключевым словом в названии")
-        print("4. Выход")
+        print("4. Сохранить вакансии в CSV-файл")
+        print("5. Выход")
 
         choice = input("Введите номер действия: ").strip()
 
         if choice == "1":
             keyword = input("Введите поисковый запрос: ")
-            pages_count = int(input(
-                "Введите количество страниц для поиска (по-умолчанию 1): ").strip()
-            )
-            if not pages_count:
-                pages_count = 1
+            pages_count = input(
+                "Введите количество страниц для поиска (по-умолчанию 1): "
+            ).strip()
+            pages_count = int(pages_count) if pages_count.isdigit() else 1
 
             vacancies = api_job_hh.search_vacancies(keyword, pages_count)
             for vacancy_data in vacancies:
@@ -61,6 +61,19 @@ def main():
                 print(vacancy, "\n")
 
         elif choice == "4":
+            csv_file_path = input(
+                "Введите путь для сохранения CSV-файла (по-умолчанию '../../data/vacancies.csv'): "
+            ).strip()
+            if not csv_file_path:
+                csv_file_path = "../../data/vacancies.csv"
+
+            try:
+                data_job.save_to_csv(csv_file_path)
+                print(f"Вакансии успешно сохранены в файл '{csv_file_path}'.")
+            except Exception as e:
+                print(f"Ошибка при сохранении файла: {e}")
+
+        elif choice == "5":
             print("Выход из программы. До свидания!")
             break
 

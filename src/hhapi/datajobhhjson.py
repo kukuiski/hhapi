@@ -12,7 +12,11 @@ class DataJobHHJSON(DataJob):
     Класс для управления вакансиями, сохраняемыми в JSON-файл.
     """
 
-    def __init__(self, file_path: str, delete_existing_data: bool = False):
+    def __init__(
+        self,
+        file_path: str = "../../data/vacancies.json",
+        delete_existing_data: bool = False,
+    ):
         """
         Инициализация экземпляра класса для работы с вакансиями в файле.
         :param file_path: Путь к файлу с данными
@@ -54,11 +58,14 @@ class DataJobHHJSON(DataJob):
 
     def save_to_csv(self, file_name: str):
         data = self.get_vacancies()
+        data_dicts = [
+            vacancy.to_dict() for vacancy in data
+        ]  # Конвертация объектов в словари
         with open(file_name, mode="w", newline="", encoding="utf-8") as file:
-            fieldnames = data[0].keys()
+            fieldnames = data_dicts[0].keys()
             writer = csv.DictWriter(file, fieldnames=fieldnames)
             writer.writeheader()
-            writer.writerows(data)
+            writer.writerows(data_dicts)
 
     def __load_data(self):
         try:
