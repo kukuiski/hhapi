@@ -8,6 +8,18 @@ packages = [{include = "hhapi", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.12"
+requests = "^2.32.3"
+
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^7.1.1"
+isort = "^5.13.2"
+black = "^24.10.0"
+pytest = "^8.3.4"
+pytest-cov = "^6.0.0"
+pytest-mock = "^3.14.0"
+testpath = "^0.6.0"
+responses = "^0.25.3"
 
 
 [build-system]
