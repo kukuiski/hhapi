@@ -6,6 +6,7 @@ from apijobhh import APIJobHH
 
 @responses.activate
 def test_load_currency_rates(mock_currency_rates):
+    APIJobHH._APIJobHH__currency_rates = {}  # Очистка перед тестом
     responses.add(
         responses.GET,
         "https://api.hh.ru/dictionaries",
@@ -16,7 +17,8 @@ def test_load_currency_rates(mock_currency_rates):
     )
 
     APIJobHH.load_currency_rates()
-    assert APIJobHH._APIJobHH__currency_rates == mock_currency_rates
+
+    assert APIJobHH._APIJobHH__currency_rates == {"USD": 75.0, "EUR": 90.0}
 
 
 def test_get_currency_rate(mock_currency_rates):
